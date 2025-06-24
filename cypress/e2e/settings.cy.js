@@ -4,14 +4,14 @@ describe('User settings', () => {
   const user = {
     username: faker.internet.userName(),
     email: faker.internet.email(),
-    password: '12345Qwert!',
+    password: '12345Qwert!'
   };
 
   const updated = {
     username: faker.internet.userName(),
     email: faker.internet.email(),
     password: '98765Zxcv!',
-    bio: faker.lorem.sentence(),
+    bio: faker.lorem.sentence()
   };
 
   before(() => {
@@ -25,14 +25,12 @@ describe('User settings', () => {
   });
 
   it('updates bio with success dialog', () => {
-    cy.get('textarea[placeholder="Short bio about you"]')
-      .clear()
-      .type(updated.bio);
+    cy.get('textarea[placeholder="Short bio about you"]').clear().type(updated.bio);
     cy.get('button:contains("Update Settings")').click();
     cy.get('.swal-modal').should('be.visible');
     cy.get('.swal-title').should('contain', 'Update successful!');
     cy.get('button.swal-button').click();
-    cy.get('[data-top="264.33333875292965"]').should('contain', updated.bio);
+    cy.get('[data-qa="profile-bio"]').should('contain', updated.bio);
   });
 
   it('updates username, email, and password', () => {
